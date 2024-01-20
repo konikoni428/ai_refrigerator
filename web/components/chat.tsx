@@ -22,7 +22,8 @@ import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
 import { usePathname, useRouter } from 'next/navigation'
 
-const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
+// const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
+const IS_INPUT_API_KEY = (process.env.NEXT_PUBLIC_IS_INPUT_API_KEY || 'false') == 'true'
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
   initialImageUrls?: string[]
@@ -37,7 +38,7 @@ export function Chat({ id, initialMessages, initialImageUrls, className }: ChatP
     'ai-token',
     null
   )
-  const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
+  const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_INPUT_API_KEY)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
   const { messages, append, reload, stop, isLoading, input, setInput } =
     useChat({
@@ -55,7 +56,7 @@ export function Chat({ id, initialMessages, initialImageUrls, className }: ChatP
       },
       onFinish() {
         if (!path.includes('chat')) {
-          router.push(`/chat/${id}`, { shallow: true, scroll: false })
+          router.push(`/chat/${id}`, { scroll: false })
           router.refresh()
         }
       }
