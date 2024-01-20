@@ -18,7 +18,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
-import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { ImageSelector, ImageSelectorMethods } from './image-selector'
 import { uploadFile } from '@/app/actions'
 
@@ -83,8 +83,10 @@ export function PromptForm({
                 key={index}
                 className='relative inline-block m-2'
               >
-                <img
-                  className='rounded object-contain max-h-32 aspect-square object-cover'
+                <Image
+                  className='rounded object-cover max-h-32 aspect-square'
+                  width={100}
+                  height={75}
                   src={imageUrl}  // 画像のソースを指定
                   alt="image"
                 />

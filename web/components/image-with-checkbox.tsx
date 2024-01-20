@@ -1,5 +1,6 @@
 import Checkbox from '@/components/ui/checkbox'
 import { useState } from 'react'
+import Image from 'next/image'
 import React from 'react';
 
 interface CheckboxState {
@@ -42,9 +43,11 @@ export function ImageWithCheckbox({ imageUrls, onChange }: ImageWithCheckboxProp
               checked={checkboxState[url]}
               onCheckedChange={() => handleChange(url)}
             />
-            <img
+            <Image
               className='rounded'
               src={url}  // 画像のソースを指定
+              width={100}
+              height={75}
               alt="image"
               onClick={() => handleChange(url)}
             />

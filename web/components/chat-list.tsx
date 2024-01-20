@@ -1,4 +1,5 @@
 import { type Message } from 'ai'
+import Image from 'next/image'
 
 import { Separator } from '@/components/ui/separator'
 import { ChatMessage } from '@/components/chat-message'
@@ -22,8 +23,10 @@ export function ChatList({ messages, imageUrls }: ChatList) {
               key={index}
               className='relative inline-block m-2'
             >
-              <img
+              <Image
                 className='rounded'
+                width={100}
+                height={75}
                 src={imageUrl}  // 画像のソースを指定
                 alt="image"
               />
