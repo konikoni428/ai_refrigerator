@@ -18,7 +18,7 @@ ForkしたリポジトリをImport
 Configure ProjectでRoot Directoryを`web`に変更
 ![change_root](./img/web_setup/change_rootdir.png)
 
-> ![Note]  
+> [!NOTE]  
 > デプロイには失敗しますが気にせず進めてください
 
 3. Vercel KV / Vercel Blobを有効化する
@@ -49,12 +49,12 @@ Vercel KV, Vercel Blobをそれぞれ追加する。
 
 ![env](./img/web_setup/envvariable.png)
 
-> ![Note]
+> [!NOTE]
 > 画像は`NEXT_PUBLIC_IS_INPUT_API_KEY`が`true`の場合です。  
 > `OPENAI_API_KEY`は使用されませんが、適当な文字列を入力しておく必要があります。  
 > なおこの値はproduction/preview/developmentでそれぞれ変更することが可能です
 
-> ![Note]
+> [!NOTE]
 > OpenAPI APIKeyの取得と、Github Appsの詳細な設定は本説明の範囲外となります。
 
 参考までにGithub Appsの設定は以下の画像のようになっております
@@ -75,7 +75,7 @@ StatusがReadyになるとデプロイ完了です。
 
 上記手順を行うと、必要な環境変数の設定やVercel KV, Vercel Blobの設定が終わっているため、ローカルでも開発ができるようになります。
 
-> ![Note]
+> [!NOTE]
 > Node.jsをすでにインストールしている前提での説明となります
 
 1. Vercel CLIのインストール
