@@ -15,7 +15,7 @@ export interface ImageSelectorMethods {
   addImages: (imageUrls: PutBlobResult) => void;
 }
 
-const ImageSelector = forwardRef<ImageSelectorMethods, ImageSelectorProps>(({ onSetImages }, ref) => {
+const ImageSelector = forwardRef<ImageSelectorMethods, ImageSelectorProps>(function ImageSelectorComponent ({ onSetImages }, ref) {
   const [images, setImages] = useState<(ListBlobResultBlob | PutBlobResult)[] | undefined>(_images)
   useImperativeHandle(ref,
     () => ({
