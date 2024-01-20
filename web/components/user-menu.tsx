@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { type Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
+import { registerApiKey } from '@/app/actions'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -12,7 +13,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from '@/components/ui/dialog'
 import { IconExternalLink } from '@/components/ui/icons'
+import { useRef, useState } from 'react'
+import { APIKeyText, APIKeyTextRef } from './apikey-text'
 
 export interface UserMenuProps {
   user: Session['user']
@@ -24,6 +35,14 @@ function getUserInitials(name: string) {
 }
 
 export function UserMenu({ user }: UserMenuProps) {
+  const [isApiKeyDialog, setIsApiKeyDialog] = useState<boolean>(false)
+  const apiKeyRef = useRef<APIKeyTextRef | null>(null)
+
+  const onRegenerateClick = () => {
+    registerApiKey()
+    apiKeyRef.current?.loadApiKey()
+  }
+
   return (
     <div className="flex items-center justify-between">
       <DropdownMenu>
@@ -51,6 +70,15 @@ export function UserMenu({ user }: UserMenuProps) {
             <div className="text-xs text-zinc-500">{user?.email}</div>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => {
+                setIsApiKeyDialog(true)
+              }}
+              className="text-xs"
+            >
+              API Key
+            </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <a
               href="https://vercel.com"
@@ -74,6 +102,31 @@ export function UserMenu({ user }: UserMenuProps) {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <Dialog open={isApiKeyDialog} onOpenChange={setIsApiKeyDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>API Key</DialogTitle>
+          </DialogHeader>
+          
+          <APIKeyText ref={apiKeyRef} />
+
+          <DialogFooter className='justify-between'>
+            <Button
+              onClick={onRegenerateClick}
+            >
+              Regenerate
+            </Button>
+
+            <Button
+              onClick={() => {
+                setIsApiKeyDialog(false)
+              }}
+            >
+              OK
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -183,3 +183,65 @@ export async function getFiles() {
     blobs: blobs
   }
 }
+
+export async function getApiKey() {
+  const session = await auth()
+  const userId = session?.user.id
+
+  if (!userId) {
+    return {
+      error: 'Unauthorized'
+    }
+  }
+
+  try {
+    const apiKey = await kv.get<string>(`user:apiKey:${userId}`);
+    return {
+      apiKey: apiKey
+    }
+  } catch (error) {
+    // Handle errors
+    return {
+      apiKey: undefined
+    }
+  }
+}
+
+const generateRandomString = (length: number) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+  
+  return randomString;
+};
+
+
+export async function registerApiKey() {
+  const session = await auth()
+  const userId = session?.user.id
+
+  if (!userId) {
+    return {
+      error: 'Unauthorized'
+    }
+  }
+
+  const newApiKey = generateRandomString(16)
+
+  try {
+    await kv.set(`user:apiKey:${userId}`, newApiKey);
+    await kv.set(`apiKey:${newApiKey}`, userId);
+    return {
+      apiKey: newApiKey
+    }
+  } catch (error) {
+    // Handle errors
+    return {
+      error: "Register Failed"
+    }
+  }
+}
