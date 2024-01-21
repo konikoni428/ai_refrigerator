@@ -1,0 +1,13 @@
+version: "3.8"
+
+name: simple-http-server
+services:
+  server:
+    build:
+      context: ../
+      dockerfile: environments/Dockerfile
+    tty: true
+    volumes:
+      - ../:/home/node/simple_http_server
+    ports:
+      - 8000:8000
