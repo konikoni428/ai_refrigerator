@@ -2,12 +2,12 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
-const port = 8080;
+const port = 8000;
 
 // app.use(express.raw({ type: 'image/*', limit: '10mb' }));
 var options = {
   inflate: true,
-  limit: '500kb',
+  limit: '1mb',
   type: '*/*'
 };
 app.use(bodyParser.raw(options));
