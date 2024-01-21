@@ -28,7 +28,6 @@ app.post('/api/image', (req, res) => {
       res.send('Image received and saved successfully');
     }
   });
-  res.send({"status":true,"error":""});
 });
 
 // 0.0.0.0で待ち受ける
