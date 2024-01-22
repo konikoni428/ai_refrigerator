@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   const apiKey = authorizationHeader.split('Bearer ')[1]
   
   const userId = await kv.get<string>(`apiKey:${apiKey}`)
-  if (!userId || userId.trim() === '') {
+  if (!userId || userId.length === 0) {
     return new Response('Bad api key', {
       status: 401
     })
