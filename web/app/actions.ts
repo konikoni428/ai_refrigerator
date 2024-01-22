@@ -230,6 +230,14 @@ export async function registerApiKey() {
     }
   }
 
+  try{
+    // remove old key
+    const oldApiKey = await kv.get<string>(`user:apiKey:${userId}`);
+    await kv.set(`apiKey:${oldApiKey}`, "");
+  } catch (error) {
+    console.log("No old api key")
+  }
+
   const newApiKey = generateRandomString(16)
 
   try {
