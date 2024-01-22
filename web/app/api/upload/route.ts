@@ -17,24 +17,26 @@ const generateRandomString = (length: number) => {
 
 
 export async function POST(req: Request) {
-  const imageData = req.body
+  const authorizationHeader = req.headers.get('Authorization')
 
-  if (!imageData) {
-    return new Response('Bad request', {
-        status: 400
-    })
-  }
-
-  const apiKey = req.headers.get('x-api-key')
-  if (!apiKey) {
-    return new Response('Bad request. You need to set x-api-key', {
+  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+    return new Response('Bad request. You need to set Authorization header with Bearer token', {
         status: 400,
     })
   }
+  const apiKey = authorizationHeader.split('Bearer ')[1]
+  
   const userId = await kv.get<string>(`apiKey:${apiKey}`)
   if (!userId) {
     return new Response('Bad api key', {
       status: 401
+    })
+  }
+
+  const imageData = req.body
+  if (!imageData) {
+    return new Response('Bad request', {
+        status: 400
     })
   }
 
