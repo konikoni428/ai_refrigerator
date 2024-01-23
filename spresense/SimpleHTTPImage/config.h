@@ -23,11 +23,11 @@
 #define  AP_SSID        "aterm-f081d7-g"
 #define  PASSPHRASE     "5a6f097b71f71"
 
-#define  HTTP_SRVR_IP  "ai-refrigerator.vercel.app"
-#define  HTTP_PORT     "443"
+#define  HTTP_SRVR_IP  "ai-refrigerator.konikoni428.com"
+#define  HTTP_PORT     "80"
 #define  HTTP_GET_PATH "/"
 #define  HTTP_POST_PATH "/api/upload"
 
-#define ROOTCA_FILE    "ISRG_Root_X1.crt"
+// #define ROOTCA_FILE    "ISRG_Root_X1.crt"
 
 #endif /*_CONFIG_H_*/

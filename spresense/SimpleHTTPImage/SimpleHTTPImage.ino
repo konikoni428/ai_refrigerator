@@ -18,7 +18,7 @@
 #include <HttpGs2200.h>
 #include <GS2200Hal.h>
 #include <SDHCI.h>
-#include <RTC.h>
+// #include <RTC.h>
 #include <TelitWiFi.h>
 #include <stdio.h> /* for sprintf */
 #include <Camera.h>
@@ -175,9 +175,9 @@ void setup() {
    * -----------------------------------
    */
 
-  RTC.begin();
-  RtcTime compiledDateTime(__DATE__, __TIME__);
-  RTC.setTime(compiledDateTime);
+  // RTC.begin();
+  // RtcTime compiledDateTime(__DATE__, __TIME__);
+  // RTC.setTime(compiledDateTime);
 
   /* initialize digital pin LED_BUILTIN as an output. */
   pinMode(LED0, OUTPUT);
@@ -207,7 +207,8 @@ void setup() {
   hostParams.port = (char *)HTTP_PORT;
   theHttpGs2200.begin(&hostParams);
 
-  Serial.println("Start HTTP Secure Client");
+  Serial.println("Start HTTP Client");
+  // Serial.println("Start HTTP Secure Client");
 
   /* Set HTTP Headers */
   theHttpGs2200.config(HTTP_HEADER_AUTHORIZATION, "Bearer nJShW4nin0e0JBNv");
@@ -215,15 +216,15 @@ void setup() {
   theHttpGs2200.config(HTTP_HEADER_HOST, HTTP_SRVR_IP);
   theHttpGs2200.config(HTTP_HEADER_CONTENT_TYPE, "application/octet-stream");
 
-  // Set certifications via a file on the SD card before connecting to the server
-	File rootCertsFile = theSD.open(ROOTCA_FILE, FILE_READ);
-  // Serial.println(rootCertsFile.available());
-	char time_string[128];
-	RtcTime rtc = RTC.getTime();
-	snprintf(time_string, sizeof(time_string), "%02d/%02d/%04d,%02d:%02d:%02d", rtc.day(), rtc.month(), rtc.year(), rtc.hour(), rtc.minute(), rtc.second());
+  // // Set certifications via a file on the SD card before connecting to the server
+	// File rootCertsFile = theSD.open(ROOTCA_FILE, FILE_READ);
+  // // Serial.println(rootCertsFile.available());
+	// char time_string[128];
+	// RtcTime rtc = RTC.getTime();
+	// snprintf(time_string, sizeof(time_string), "%02d/%02d/%04d,%02d:%02d:%02d", rtc.day(), rtc.month(), rtc.year(), rtc.hour(), rtc.minute(), rtc.second());
 
-	theHttpGs2200.set_cert((char*)"TLS_CA", time_string, 0, 1, &rootCertsFile);
-	rootCertsFile.close();
+	// theHttpGs2200.set_cert((char*)"TLS_CA", time_string, 0, 1, &rootCertsFile);
+	// rootCertsFile.close();
 
 
   /* -----------------------------------
