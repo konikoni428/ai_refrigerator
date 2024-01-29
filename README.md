@@ -53,7 +53,8 @@ elchika投稿作品
 
 
 （制作した土台部分のモデル（左）制作したSPRESENSE固定部（右））
-![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/025760cf-8310-4864-9026-54841cfcf6e0)
+![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/334046a5-85cf-4033-892c-0d0d59c04983)
+
 
 
 
