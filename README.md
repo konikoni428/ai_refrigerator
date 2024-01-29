@@ -46,16 +46,22 @@ elchika投稿作品
 （参考にした角度調整部（左）参考にしたSPRESENSE固定部（右））
 ![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/a83bdedd-f847-471d-a218-7552a32f99f2)
 
+
 モデリングにはFusion360を、プリントにはSindoh 3DWOX 2X 3D Printerを使用しました。
 実際のモデルデータは[github](https://github.com/konikoni428/ai_refrigerator/tree/main/case_model)に置いています。
+
+
 
 （制作した土台部分のモデル（左）制作したSPRESENSE固定部（右））
 ![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/025760cf-8310-4864-9026-54841cfcf6e0)
 
-はじめてのモデリングでしたが、きれいに出力されました
+
 
 （ボール部分によって角度調整が可能（左・中央）。実際にSPRESENSEをマウントして撮影している様子（右））
 ![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/82997fa5-8081-4f26-9235-28d0a7cb1811)
+
+
+はじめてのモデリングでジョイント部分がちゃんと機能するか心配でしたが、きれいに出力＆機能されました！
 
 ## ソースコード
 （小西さん・久保谷さん　お願いしますm(__)m）
