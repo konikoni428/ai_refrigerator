@@ -27,6 +27,7 @@
 #define  HTTP_PORT     "80"
 #define  HTTP_GET_PATH "/"
 #define  HTTP_POST_PATH "/api/upload"
+#define  HTTP_AUTH_KEY  "Bearer <YOUR API KEY>"
 
 // #define ROOTCA_FILE    "ISRG_Root_X1.crt"
 

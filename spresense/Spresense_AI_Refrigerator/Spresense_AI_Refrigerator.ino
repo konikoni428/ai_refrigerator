@@ -194,7 +194,7 @@ void setup() {
   // Serial.println("Start HTTP Secure Client");
 
   /* Set HTTP Headers */
-  theHttpGs2200.config(HTTP_HEADER_AUTHORIZATION, "Bearer nJShW4nin0e0JBNv");
+  theHttpGs2200.config(HTTP_HEADER_AUTHORIZATION, HTTP_AUTH_KEY);
   // theHttpGs2200.config(HTTP_HEADER_TRANSFER_ENCODING, "chunked");
   theHttpGs2200.config(HTTP_HEADER_HOST, HTTP_SRVR_IP);
   theHttpGs2200.config(HTTP_HEADER_CONTENT_TYPE, "application/octet-stream");
