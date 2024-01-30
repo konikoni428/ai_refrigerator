@@ -20,8 +20,8 @@
 /*-------------------------------------------------------------------------*
  * Configration
  *-------------------------------------------------------------------------*/
-#define  AP_SSID        "aterm-f081d7-g"
-#define  PASSPHRASE     "5a6f097b71f71"
+#define  AP_SSID        "your-ssid"
+#define  PASSPHRASE     "your-password"
 
 #define  HTTP_SRVR_IP  "ai-refrigerator.konikoni428.com"
 #define  HTTP_PORT     "80"
