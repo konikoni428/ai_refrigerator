@@ -17,6 +17,11 @@ elchika投稿作品
 
 また、このシステムは画像認識機能を備えた対話モデル、GPT-4Vを利用しています。これにより、ユーザーは冷蔵庫の中身を基にした夕食の提案を受けたり、何を作れるかについてアドバイスをもらったりすることができます。この機能は、ユーザーが直接画像を見ることなく、冷蔵庫にある食材から最適な献立を提案します。
 
+## 利用
+URL: https://ai-refrigerator.vercel.app/
+
+利用にはGithubアカウント、GPT4Vが利用可能なChatGPT APIKeyが必要です
+
 ## システムアーキテクチャ
 このシステムは以下のようなアーキテクチャ構成になっています。
 ![image](https://github.com/konikoni428/ai_refrigerator/assets/57473877/a9356cf4-a5e1-418d-b9b2-7a3ed76dcae6)
@@ -28,11 +33,14 @@ elchika投稿作品
   - SDカードの挿入や音声のI/Oができるようになる拡張アタッチメント
 - SPRESENSE HDRカメラボード
   - SPRESENSEメインボードにつなぐことで撮影ができるようになる拡張アタッチメント
-- SPRESENSE Wi-Fi Add-onボード
-  - SPRESENSEメインボードにつなぐことで撮wifi通信ができるようになる拡張アタッチメント
+- SPRESENSE Wi-Fi Add-onボード (GS2200-WiFi)
+  - SPRESENSEメインボードにつなぐことでWifi通信ができるようになる拡張アタッチメント
 - SDカード
   - SPRESENSE拡張ボードに挿入することでプログラムで使用するデータを格納することができる
-- (webサーバーとかで使用しているものの記載お願いします)
+- React + Next.js
+  - Web App作成のため
+- Vercel + Vercel KV + Vercel Blob
+  - 作成したWebAppのホスティングや、データ保管のため
 - PLAフィラメント
   - SPRESENSEを固定するためのケースを出力するための素材
   
@@ -46,7 +54,257 @@ elchika投稿作品
   - ケースをモデリングするためのエディタ
 
 ## コーディング
+
+### Spresense
 （小西さん・久保谷さん　お願いしますm(__)m）
+
+#### GS2200 WiFi Addonボードを用いた画像アップロード
+公式より提供されている[Arduinoライブラリ](https://github.com/jittermaster/GS2200-WiFi)をもちいてPOST通信を使いサーバーに画像をアップロードしています。
+
+初めはなかなかうまくいかなかったのですが、ライブラリを眺めていると`strlen(body)`では画像バイナリは正しく送信するサイズの計算が行えないことに気づきました。
+
+```cpp:src/HttpGs2200.cpp
+bool HttpGs2200::post(const char* url_path, const char* body) {
+	bool result = false;
+
+	HTTP_DEBUG("POST Start");
+	result = connect();
+
+	WiFi_InitESCBuffer();
+
+	HTTP_DEBUG("Socket Open");
+	result = send(HTTP_METHOD_POST, 10, url_path, body, strlen(body));
+
+	return result;
+}
+```
+
+そのため、SDカードから画像を読み込んで画像をアップロードする際にはPOST関数を使用せず、POST関数と同等な関数かつファイルサイズを渡すことが可能な関数を`custom_post`関数として定義することで問題の回避を行いました。
+
+```cpp:upload.ino
+/* ---------------------------------------------------------------------
+* Function to send byte data to the HTTP server
+* ----------------------------------------------------------------------
+*/
+bool custom_post(const char *url_path, const char *body, uint32_t size) {
+  char size_string[10];
+  snprintf(size_string, sizeof(size_string), "%d", size);
+  theHttpGs2200.config(HTTP_HEADER_CONTENT_LENGTH, size_string);
+  Serial.println("Size");
+  Serial.println(size_string);
+
+  bool result = false;
+  result = theHttpGs2200.connect();
+  WiFi_InitESCBuffer();
+  result = theHttpGs2200.send(HTTP_METHOD_POST, 10, url_path, body, size);
+  return result;
+}
+
+
+void uploadImage(char *filename) {
+  // Create body
+  File file = theSD.open(filename, FILE_READ);
+  // Calculate size in byte
+  uint32_t file_size = file.size();
+
+  // Define_a body pointer having the continuous memory space with size `file_size`
+  char *body = (char *)malloc(file_size);
+  if (body == NULL) {
+    Serial.println("No free memory");
+  }
+
+  // Read byte of the file iteratively and put it in the address where each member of body pointer points out
+  int index = 0;
+  while (file.available()) {
+    body[index++] = file.read();
+  }
+  file.close();
+
+  // Send the body data to the server
+  bool result = custom_post(HTTP_POST_PATH, body, file_size);
+  if (false == result) {
+    Serial.println("Post Failed");
+  }
+  free(body);
+}
+```
+
+なお余談ですが、一般的にWebで利用される`multipart/form-data`を使用した画像アップロードに挑戦していたのですが、まったくうまくいかなかったので、成功した方は教えていただきたいです。
+
+また、アップロード先にVercelにてホスティングしているサーバーを指定し、HTTPSにてアップロードを行うことに挑戦しましたが、ルート証明書を入れても正しくアップロードできませんでした。RSA4096bitで証明書のサイズが大きいこと、リダイレクトがかかることが原因だと考えていますが、GS2200ライブラリ側で問題になってそうなところを修正しても改善しませんでした。
+
+そのため回避策としてVercelのHTTPSのサーバーに対してプロキシするHTTPサーバを立てることで回避しました。
+もちろん何もセキュリティ的に良くない構成となっているため、修正したいのですがどうにもできず、改善できた方は教えていただきたいです。     
+
+```text
+┌─────────────┐           ┌──────────────┐        ┌─────────────────┐
+│             │   http    │              │ https  │                 │
+│  Spserense  │ ────────► │  HTTP Proxy  │ ──────►│  Vercel Server  │
+│             │           │              │        │                 │
+└─────────────┘           └──────────────┘        └─────────────────┘
+```
+
+ちなみにプロキシは以下のようなnginx設定を用いました。
+```nginx.conf
+server {
+    server_name ai-refrigerator.konikoni428.com;
+    listen 80;
+    listen [::]:80;
+    charset UTF-8;
+
+    location / {
+        proxy_pass_request_headers off;
+        proxy_set_header Host ai-refrigerator.vercel.app;
+        proxy_set_header Authorization $http_authorization;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass https://ai-refrigerator.vercel.app;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_buffering off;
+        chunked_transfer_encoding off;
+        client_max_body_size 10m;
+    }
+}
+```
+
+### Web APP
+チャット画面には
+
+- React
+- Next.js
+
+を用いて開発を行いました。
+
+またWebサービスのホスティングのため、Nextjsの開発元である[Vercel社](https://vercel.com/)のホスティングサービスを利用しました
+比較的無料で使える枠が大きいので今回のようなサービスを公開するには非常に利用しやすいです。
+
+また、ChatGPTのような画面を作るにあたって[ai-chatbot](https://github.com/vercel/ai-chatbot)というNext.jsの開発元であるVercel社が出しているサンプルをベースに開発を行いました。
+
+すべての説明はコード量から難しいため、主にSpresenseから画像を受け取る所に関係するコードについて紹介いたします。
+
+まず、このAI 冷蔵庫 WebAppはログイン機能が存在します。そのため画像アップロード時には誰が画像をアップロードしたのか識別するためにAPIKeyを用いた認証を行います。
+
+APIを発行する処理は以下のコードによって行われます。
+`registerApiKey()`を呼び出すことでAPIKeyが発行されます。
+本WebAppはGithubを用いたログイン連携が可能となっており、その処理は[NextAuth.js](https://next-auth.js.org/)によって行われます。  
+その際、[Vercel KV](https://vercel.com/docs/storage/vercel-kv)と呼ばれるRedis互換のNoSQLサービスを利用してAPIKeyとuserIdの関連付けデータをサーバー側に保管します。
+
+```typescript:app/actions.ts
+import { kv } from '@vercel/kv'
+import { auth } from '@/auth'
+
+const generateRandomString = (length: number) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+  
+  return randomString;
+};
+
+
+export async function registerApiKey() {
+  const session = await auth()
+  const userId = session?.user.id
+
+  if (!userId) {
+    return {
+      error: 'Unauthorized'
+    }
+  }
+
+  try{
+    // remove old key
+    const oldApiKey = await kv.get<string>(`user:apiKey:${userId}`);
+    await kv.set(`apiKey:${oldApiKey}`, "");
+  } catch (error) {
+    console.log("No old api key")
+  }
+
+  const newApiKey = generateRandomString(16)
+
+  try {
+    await kv.set(`user:apiKey:${userId}`, newApiKey);
+    await kv.set(`apiKey:${newApiKey}`, userId);
+    return {
+      apiKey: newApiKey
+    }
+  } catch (error) {
+    // Handle errors
+    return {
+      error: "Register Failed"
+    }
+  }
+}
+```
+
+ここからは実際のアップロードの処理となっています。
+Next.jsにはAppRoutingと呼ばれる機能があり、appフォルダ以下のフォルダ構成がそのままAPIに変換され、この例では https://<example.com>/api/uploadに対して、POSTのリクエストを処理するコードになっています。  
+
+リクエストが届くとまず初めに認証が行われ、`Authorization: Bearer <API KEY>`のようにAuthorizationヘッダに先ほど作成したAPIKeyを付与することで認証が行われます。
+問題なく認証が行われると、リクエストボディから画像を取り出し、[Vercel Blob](https://vercel.com/docs/storage/vercel-blob)というストレージサービスに保管しています。
+
+```typescript:api/upload/route.ts
+import { kv } from '@vercel/kv'
+import { put } from '@vercel/blob';
+
+export const runtime = 'edge'
+
+const generateRandomString = (length: number) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
+    
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters.charAt(randomIndex);
+    }
+    
+    return randomString;
+};
+
+
+export async function POST(req: Request) {
+  const authorizationHeader = req.headers.get('Authorization')
+
+  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+    return new Response('Bad request. You need to set Authorization header with Bearer token', {
+        status: 400,
+    })
+  }
+  const apiKey = authorizationHeader.split('Bearer ')[1]
+  
+  const userId = await kv.get<string>(`apiKey:${apiKey}`)
+  if (!userId || userId.length === 0) {
+    return new Response('Bad api key', {
+      status: 401
+    })
+  }
+
+  const imageData = req.body
+  if (!imageData) {
+    return new Response('Bad request', {
+        status: 400
+    })
+  }
+
+  const date = new Date()
+  const filename = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}_${generateRandomString(8)}.jpg`;
+
+  const blob = await put(`${userId}/${filename}`, imageData, {
+    access: 'public',
+  });
+
+  return new Response('Success', {
+    status: 200
+  })
+}
+```
 
 ## モデリング
 より冷蔵庫内の食材を正確に把握できるように、各環境（冷蔵庫）に合わせて、設営場所・カメラ角度を変えれるようなケースをモデリングしました。
