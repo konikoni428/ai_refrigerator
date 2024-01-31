@@ -1,6 +1,11 @@
-# AI 冷蔵庫
+<p align="center">
+  <h1 align="center">:fork_and_knife: AI冷蔵庫</h3>
+</p>
 
-elchika投稿作品
+
+> [!Note]
+> elchika 2023年SPRESENSE活用コンテスト 投稿作品 [link](https://elchika.com/promotion/spresense2023/conditions/)
+
 <!-- 
 [応募要項](https://elchika.com/promotion/spresense2023/conditions/)に従って、記事を作ります。
 提出のために、応募フォームにMarkdown形式で以下の画像のようなフォームを作成するのが目的です。
