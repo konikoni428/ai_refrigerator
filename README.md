@@ -77,6 +77,7 @@
     チャット欄の左側に＋ボタンがあり、クリックすると画像選択が可能です。
     試験用にPCから画像アップロードも可能となっております。
     （Vercel Blobの制約のため100kB程度の画像を送っていただけると助かります）
+
     ![画像選択](https://camo.elchika.com/026ac370f5dd5bedf187152d85e256e82a2e8907/687474703a2f2f73746f726167652e676f6f676c65617069732e636f6d2f656c6368696b612f76312f757365722f64373561346230352d363236332d343366342d393261322d6534363062343865656336312f32366536373333652d343466332d343265322d616339382d373565623939343861303065/)
 
     ![チャット入力](https://camo.elchika.com/db7410c9c6290e73ef5f8b91e135a542531652c7/687474703a2f2f73746f726167652e676f6f676c65617069732e636f6d2f656c6368696b612f76312f757365722f64373561346230352d363236332d343366342d393261322d6534363062343865656336312f63663733323935372d386534322d343965312d393835612d623939346534336434333537/) 
@@ -117,7 +118,6 @@
 ## コーディング
 
 ### Spresense
-（小西さん・久保谷さん　お願いしますm(__)m）
 
 #### GS2200 WiFi Addonボードを用いた画像アップロード
 公式より提供されている[Arduinoライブラリ](https://github.com/jittermaster/GS2200-WiFi)をもちいてPOST通信を使いサーバーに画像をアップロードしています。
@@ -368,6 +368,7 @@ export async function POST(req: Request) {
 ```
 
 ## モデリング
+
 より冷蔵庫内の食材を正確に把握できるように、各環境（冷蔵庫）に合わせて、設営場所・カメラ角度を変えれるようなケースをモデリングしました。
 角度調整部は[こちらのボールジョイントを](https://www.thingiverse.com/thing:1156296)、SPRESENSE固定部は[公式githubを](https://github.com/sonydevworld/spresense-hw-design-files/blob/master/Case/LTE-Board-Case-Sample/stl/LTE-Board-Case-Sample_bottom.stl)を参考にさせていただきました。
 
@@ -394,7 +395,7 @@ export async function POST(req: Request) {
 
 ## 全てのソースコード
 
-Elchikaのみ記入
+Elchikaにのみ記入
 
 
 
