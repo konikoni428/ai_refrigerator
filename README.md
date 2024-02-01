@@ -2,21 +2,12 @@
   <h1 align="center">:fork_and_knife: AI冷蔵庫</h3>
 </p>
 
+<p align="center">
+<h3 align="center"> :star:  elchika 2023年SPRESENSE活用コンテスト 投稿作品
+<a href="https://elchika.com/promotion/spresense2023/conditions/"><img alt="elchika spresense contest" title="elchika spresense contest" src="https://img.shields.io/badge/contest page-blue.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIj48cGF0aCBkPSJNMTI5IDExMWMtNTUgNC05MyA2Ni05MyA3OEwwIDM5OGMtMiA3MCAzNiA5MiA2OSA5MWgxYzc5IDAgODctNTcgMTMwLTEyOGgyMDFjNDMgNzEgNTAgMTI4IDEyOSAxMjhoMWMzMyAxIDcxLTIxIDY5LTkxbC0zNi0yMDljMC0xMi00MC03OC05OC03OGgtMTBjLTYzIDAtOTIgMzUtOTIgNDJIMjM2YzAtNy0yOS00Mi05Mi00MmgtMTV6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"/></a>:star:  </h3>
+</p>
 
-> [!Note]
-> elchika 2023年SPRESENSE活用コンテスト 投稿作品 [link](https://elchika.com/promotion/spresense2023/conditions/)
-
-<!-- 
-[応募要項](https://elchika.com/promotion/spresense2023/conditions/)に従って、記事を作ります。
-提出のために、応募フォームにMarkdown形式で以下の画像のようなフォームを作成するのが目的です。
-![example_ok](img/example-ok.png)
-アンチパターン
-![example_ng](img/example-ng.png)
-今回小規模なので、記事をREADME上で書いていくので良いかと思っています。
-# <span style="color: red; ">ここから上は提出時に消す！！</span>
-
-### ここに久保谷君がスクショしたチャット画面
--->
+## 目次
 
 1. [概要](#概要)
 2. [公開サイト](#公開サイト)
