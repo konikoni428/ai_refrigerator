@@ -3,7 +3,7 @@
   <h3>
     :star: elchika 2023年SPRESENSE活用コンテスト 投稿作品
     <a href="https://elchika.com/promotion/spresense2023/conditions/">
-      <img alt="elchika spresense contest" title="elchika spresense contest" src="https://img.shields.io/badge/contest page-blue.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIj48cGF0aCBkPSJNMTI5IDExMWMtNTUgNC05MyA2Ni05MyA3OEwwIDM5OGMtMiA3MCAzNiA5MiA2OSA5MWgxYzc5IDAgODctNTcgMTMwLTEyOGgyMDFjNDMgNzEgNTAgMTI4IDEyOSAxMjhoMWMzMyAxIDcxLTIxIDY5LTkxbC0zNi0yMDljMC0xMi00MC03OC05OC03OGgtMTBjLTYzIDAtOTIgMzUtOTIgNDJIMjM2YzAtNy0yOS00Mi05Mi00MmgtMTV6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"/>
+      <img alt="elchika spresense contest" title="elchika spresense contest" src="https://img.shields.io/badge/contest_page-rgb(16,181,181).svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIj48cGF0aCBkPSJNMTI5IDExMWMtNTUgNC05MyA2Ni05MyA3OEwwIDM5OGMtMiA3MCAzNiA5MiA2OSA5MWgxYzc5IDAgODctNTcgMTMwLTEyOGgyMDFjNDMgNzEgNTAgMTI4IDEyOSAxMjhoMWMzMyAxIDcxLTIxIDY5LTkxbC0zNi0yMDljMC0xMi00MC03OC05OC03OGgtMTBjLTYzIDAtOTIgMzUtOTIgNDJIMjM2YzAtNy0yOS00Mi05Mi00MmgtMTV6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"/>
     </a>
     :star:
   </h3>
@@ -38,7 +38,7 @@
 
 ## アプリケーション公開サイト
 
-![app link](https://img.shields.io/badge/Vercel-app-blue.svg?logo=vercel)
+![app link](https://img.shields.io/badge/Vercel-web_app-blue.svg?logo=vercel)
 
 > [!important]
 > Githubアカウント、OpenAIの対話モデルGPT4Vが利用可能なAPI Keyが必要です
