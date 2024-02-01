@@ -1,11 +1,19 @@
-<p align="center">
-  <h1 align="center">:fork_and_knife: AI冷蔵庫</h3>
-</p>
+<div align="center">
+  <h1>:fork_and_knife: AI冷蔵庫</h1>
+  <h3>
+    :star: elchika 2023年SPRESENSE活用コンテスト 投稿作品
+    <a href="https://elchika.com/promotion/spresense2023/conditions/">
+      <img alt="elchika spresense contest" title="elchika spresense contest" src="https://img.shields.io/badge/contest page-blue.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIj48cGF0aCBkPSJNMTI5IDExMWMtNTUgNC05MyA2Ni05MyA3OEwwIDM5OGMtMiA3MCAzNiA5MiA2OSA5MWgxYzc5IDAgODctNTcgMTMwLTEyOGgyMDFjNDMgNzEgNTAgMTI4IDEyOSAxMjhoMWMzMyAxIDcxLTIxIDY5LTkxbC0zNi0yMDljMC0xMi00MC03OC05OC03OGgtMTBjLTYzIDAtOTIgMzUtOTIgNDJIMjM2YzAtNy0yOS00Mi05Mi00MmgtMTV6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"/>
+    </a>
+    :star:
+  </h3>
+  <div style="text-align: center;">
+    <img alt="ai refrigerator" title="ai refrigerator" src="https://github.com/konikoni428/ai_refrigerator/assets/61688218/eede05ea-bf4c-415e-9616-882c3882f410"/>
+  </div>
+</div>
 
-<p align="center">
-<h3 align="center"> :star:  elchika 2023年SPRESENSE活用コンテスト 投稿作品
-<a href="https://elchika.com/promotion/spresense2023/conditions/"><img alt="elchika spresense contest" title="elchika spresense contest" src="https://img.shields.io/badge/contest page-blue.svg?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIj48cGF0aCBkPSJNMTI5IDExMWMtNTUgNC05MyA2Ni05MyA3OEwwIDM5OGMtMiA3MCAzNiA5MiA2OSA5MWgxYzc5IDAgODctNTcgMTMwLTEyOGgyMDFjNDMgNzEgNTAgMTI4IDEyOSAxMjhoMWMzMyAxIDcxLTIxIDY5LTkxbC0zNi0yMDljMC0xMi00MC03OC05OC03OGgtMTBjLTYzIDAtOTIgMzUtOTIgNDJIMjM2YzAtNy0yOS00Mi05Mi00MmgtMTV6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"/></a>:star:  </h3>
-</p>
+
+
 
 ## 目次
 
